@@ -8,21 +8,26 @@ function Home(){
     return(
         <>
             <Header isLoggedIn={isLoggedIn}></Header>
-            <div className="container">
-                <div className="hero-home">Haven’t joined a session yet? ,<br />
-                Find out something your interested in. <br />
-                <Link to='/sessions/explore' id='explorelink'>
-                <span class="_text">explore</span> 
-                </Link>
+            <div id="home">
+                <div className="hero-home">
+                    <div className="hero-text">
+                    Haven’t joined a session yet? , <br />
+                    Find out something your interested in. 
+                    <br />
+                    <div className="calltoaction">Check out our <Link to='/sessions/explore' className="callaction">explore</Link> section</div>
+                    </div>
                 </div>
-                <br />
-                
+            <div className="_features">
+                <div className="features-text">
+                    Want advice from seniors <br />
+                    who cracked their interviews?
+                </div>
+                <div className="features-desc">
+                    View our community tab for tips from seniors
+                </div>
+                <FeatureBody page="home"></FeatureBody>
             </div>
-            <div className="advice">Want advice from seniors <br />
-            who cracked their interviews?</div>
-            <div className="advice-small">View our community tab for tips from seniors</div>
-            <FeatureBody></FeatureBody>
-            
+            </div>
         </>
     )
 }

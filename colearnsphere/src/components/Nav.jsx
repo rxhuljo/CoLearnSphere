@@ -5,7 +5,7 @@ function Nav(props){
     const link = props.link;
 
     return(
-            <Link to={link} className="nav-link">{name}</Link>
+            <Link to={link} className="nav-link _text">{name}</Link>
     )
 }
 
