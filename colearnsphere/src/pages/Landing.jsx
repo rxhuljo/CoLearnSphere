@@ -17,7 +17,7 @@ function Landing(){
                     <br />
                     </div>
                 </div>
-                <div className="about-section">
+                <div className="about-section" id="about">
                     <div className="about-text">
                     “ At CoLearn Sphere, we believe <br /> that knowledge is best shared. <br /> Our peer-to-peer learning  platform connects <br />
                      passionate learners and skilled individuals “ 

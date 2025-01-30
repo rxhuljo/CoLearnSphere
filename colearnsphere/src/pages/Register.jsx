@@ -6,6 +6,9 @@ function Register() {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [phone,setPhone] = useState("");
+    const [Username,setUsername] = useState("");
+    const [College,setCollege] = useState("");
     const navigate=useNavigate();
     const switchSinLog = () => {
         navigate("/login")
@@ -15,25 +18,34 @@ function Register() {
         e.preventDefault();
         console.log(`Email: ${email}, Password: ${password}`);
         const emailcheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        let valid = false;
+        let valid = true;
         if(emailcheck.test(email)){
-            valid=true
             console.log("Email valid");
         }else{
-            window.alert("Invalid email")
+            valid = false;
         }
+        const phonecheck = /^[0-9]{10}$/;
+        if(!phonecheck.test(phone)){
+           valid = false; 
+        }
+        if(College.trim == "" || Username.trim == "" || password.trim == ""){
+            valid = false;
+        } 
         if(valid==true){
             navigate("/home");
+        }else{
+            document.getElementById("error-text").style.color = "red"
         }
+
     };
 
     return (
         <div className="login-body">
         <div className="login-card">
-            <h3>Sign Up</h3>
+            <h2>Sign Up</h2>
             <form id={"login"} onSubmit={handleSubmit}>
-                <p className="small-text">
-                    {"Enter email and password to create account"}
+                <p className="small-text" id="error-text">
+                    Make sure you have entered details correctly
                 </p>
                 <label className="small-text">Email</label>
                 <br />
@@ -49,6 +61,31 @@ function Register() {
                     type="password" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                />
+                <br />
+                <label className="small-text">Username</label>
+                <br />
+                <input 
+                    type="text" 
+                    value={Username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <br />
+                <label className="small-text">College</label>
+
+                <br />
+                <input 
+                    type="text" 
+                    value={College}
+                    onChange={(e) => setCollege(e.target.value)}
+                />
+                <br />
+                <label className="small-text">Phone</label>
+                <br />
+                <input 
+                    type="text" 
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                 />
                 <br />
                 <br />

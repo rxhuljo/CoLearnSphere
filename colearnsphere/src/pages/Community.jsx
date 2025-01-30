@@ -8,12 +8,15 @@ function Community(){
     const [posts,setPost] = useState([]);
     const [newPost,setNewPost] = useState("");
     const addPost = ()=>{
+        posts.reverse()
         setPost([...posts,newPost])
         resetPost();
+        posts.reverse()
     }
     const resetPost = () =>{
         setNewPost("")
     }
+   
     return(
         <>
             <Header isLoggedIn={isLoggedIn}></Header>
@@ -23,11 +26,17 @@ function Community(){
                     <button id="newcommpost" onClick={addPost}>New Post</button>
                 </div>
                 <div className="right-column-post">
-                    {
-                        posts.map((content,index) =>(
-                            <PostCard key="index" content={content} user={username}/>
-                        ))
-                    }
+                    {   
+                            posts.map((content,index) =>(
+                                <PostCard key="index" content={content} user={username}/>
+                            ))
+                        }
+                    <PostCard content="Build strong projects and gain internship experience for better placement opportunities." user="Michael Reynolds"/>
+                    <PostCard content="Improve communication skills and practice coding regularly to ace technical interviews." user="Sophia Carter"/>
+                    <PostCard content="Network with professionals on LinkedIn and attend career fairs for job opportunities." user="Daniel Thompson"/>
+                    <PostCard content="Research companies, tailor resumes, and apply early for better placement chances." user="Olivia Harris"/>
+                    <PostCard content="Develop problem-solving skills and participate in hackathons to stand out in placements." user="James Walker"/>
+                    
 
 
                 </div>
