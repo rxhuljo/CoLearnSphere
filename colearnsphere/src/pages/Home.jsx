@@ -14,7 +14,7 @@ function Home(){
                     Haven’t joined a session yet? , <br />
                     Find out something your interested in. 
                     <br />
-                    <div className="calltoaction">Check out our <Link to='/sessions/explore' className="callaction">explore</Link> section</div>
+                    <div className="calltoaction">Check out our <Link to='/sessions/explore' className="callaction"><mark>explore</mark></Link> section</div>
                     </div>
                 </div>
             <div className="_features">

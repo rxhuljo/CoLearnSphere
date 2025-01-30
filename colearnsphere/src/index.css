@@ -3,7 +3,7 @@
   padding: 0;
 }
 body{
-  background: linear-gradient(-45deg, #c80b0b, #dc5313, #000000, #23d5ab);
+  background: linear-gradient(-45deg, #c80b0b, #e93131, #000000, #23d5ab);
 	background-size: 400% 500%;
 	animation: gradient 15s ease infinite;
 	height: 100vh;
@@ -33,6 +33,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0.2rem;
   border-radius: 10px;
 }
 .signuptext{
@@ -129,6 +130,11 @@ nav{
   }
 }
 /*Hero section home*/
+mark{
+  background-color: rgba(255, 255, 255, 0.637);
+}
+
+
 .hero-home{
   width: 100%;
   z-index: 0;
@@ -153,7 +159,13 @@ nav{
   display: inline;
 }
 .callaction{
-  color: white;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  
+}
+.callaction:hover{
+  transition-duration: ease-in 2s;
+  text-decoration: underline
 }
 @keyframes load-in{
   0%{

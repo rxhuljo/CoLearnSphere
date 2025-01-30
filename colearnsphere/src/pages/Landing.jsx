@@ -12,8 +12,8 @@ function Landing(){
             <div id="home">
                 <div className="hero-home">
                     <div className="hero-text">
-                    Welcome to Colearn Sphere <br />
-                    where Education meets Collaboration 
+                    Welcome to <br /> Colearn Sphere 
+                    where <br /><mark > Education</mark>  meets <mark> Collaboration</mark> 
                     <br />
                     </div>
                 </div>
