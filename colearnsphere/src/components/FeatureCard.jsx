@@ -3,12 +3,11 @@ import React from "react";
 function FeatureCard(props){
     return(
         <>  
-            <div className="feature-card">
-                <div className="feature-header">
+            <div className="features-card">
+                <div className="features-header">
                     {props.header}
                 </div>
-                <br />
-                <div className="feature-body">
+                <div className="features-body">
                     {props.body}
                 </div>
             </div>

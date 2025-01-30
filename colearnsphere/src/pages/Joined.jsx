@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import CardSession from "../components/CardSession";
-function Explore(){
+function Joined(){
     let isLoggedIn = true;
     return(
         <>
@@ -17,19 +17,10 @@ function Explore(){
                     </ul>
                 </div>
                 <div className="right-column">
-                    <CardSession btn="Join"></CardSession>
-                    <CardSession btn="Join"></CardSession>
-                    <CardSession btn="Join"></CardSession>
-                    <CardSession btn="Join"></CardSession>
-                    <CardSession btn="Join"></CardSession>
-                    <CardSession btn="Join"></CardSession>
-                    <CardSession btn="Join"></CardSession>
-                    <CardSession btn="Join"></CardSession>
-                    <CardSession btn="Join"></CardSession>
-                    <CardSession btn="Join"></CardSession>
-                    <CardSession btn="Join"></CardSession>
-                    <CardSession btn="Join"></CardSession>
-                    <CardSession btn="Join"></CardSession>
+                    <CardSession btn="Open"></CardSession>
+                    <CardSession btn="Open"></CardSession>
+                    <CardSession btn="Open"></CardSession>
+                    <CardSession btn="Open"></CardSession>
 
                 </div>
             </div>
@@ -37,4 +28,4 @@ function Explore(){
     )
 }
 
-export default Explore
+export default Joined
