@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import FeatureBody from "../components/FeatureBody.jsx";
 import brain from "../assets/brain.png"
+import Footer from "../components/Footer.jsx";
 function Landing(){
     let isLoggedIn = false;
     const navigate = useNavigate();
@@ -33,6 +34,7 @@ function Landing(){
                 <FeatureBody page="landing"></FeatureBody>
             </div>
             </div>
+            <Footer></Footer>
         </>
     )
 }

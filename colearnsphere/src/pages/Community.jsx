@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import PostCard from "../components/PostCard";
 function Community(){
     let isLoggedIn = true;
-    let username = "Anand Gireesh";
+    let username = "Agmal N";
     const [posts,setPost] = useState([]);
     const [newPost,setNewPost] = useState("");
     const addPost = ()=>{
