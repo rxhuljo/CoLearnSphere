@@ -135,7 +135,7 @@ nav{
 }
 /*Hero section home*/
 mark{
-  background-color: rgba(255, 255, 255, 0.637);
+  background-color: #ffffff;
 }
 
 
@@ -433,5 +433,5 @@ mark{
   height: 60vh;
   width: 30vw;
   border-radius: 20px;
-  background-color:#1C1C1C;
+  background-color:#1c1c1c23;
 }

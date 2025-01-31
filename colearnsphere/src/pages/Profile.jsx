@@ -7,11 +7,11 @@ function Profile(){
             <Header isLoggedIn={isLoggedIn}></Header>
             <div className="profileframe">
                 <div className="profilecard">
-                    Username : User1123ab42
-                    <br />Email : u220340@rajagiri.edu.in
-                    <br />Phone : 96745848436
-                    <br />Age : 21
-                    <br />College : Rajagiri School Of Engineering and Technology
+                    <b>Username</b> : User1123ab42
+                    <br /><b>Email</b> : u220340@rajagiri.edu.in
+                    <br /><b>Phone</b> : 96745848436
+                    <br /><b>Age</b> : 21
+                    <br /><b>College</b> : Rajagiri School Of Engineering and Technology
                 </div>
             </div>
         </>

@@ -13,7 +13,6 @@ function Explore(){
                         <Link to='/sessions/explore' className="hamlinks"><li>explore</li><div class="_line"></div></Link>
                         <Link to='/sessions/joined' className="hamlinks"><li>joined</li><div class="_line"></div></Link>
                         <Link to='/' className="hamlinks"><li>calendar</li><div class="_line"></div></Link>
-                        <Link to='/' className="hamlinks"><li>resources</li><div class="_line"></div></Link>
                     </ul>
                 </div>
                 <div className="right-column">

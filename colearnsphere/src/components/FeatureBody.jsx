@@ -16,7 +16,7 @@ function FeatureBody(props) {
     }else{
         features = [
             { title: "Mia Dawson", desc: "Start preparing early for interviews and internships. Build a strong foundation in core subjects, and stay updated on industry trends to be ahead in placement season." },
-            { title: "Lucas Armstrong", desc: "Network with alumni and industry professionals. Attend career fairs, workshops, and seminars to expand your connections, which can provide valuable insights and job opportunities during placement." },
+            { title: "Hadi Mali", desc: "Network with alumni and industry professionals. Attend career fairs, workshops, and seminars to expand your connections, which can provide valuable insights and job opportunities during placement." },
             { title: "Harper Brooks ", desc: "Focus on building a strong, diverse resume with relevant projects, internships, and certifications. Employers value practical experience alongside academic knowledge, so be sure to highlight both." },
             { title: "Leo Matthews", desc: "Practice mock interviews regularly to improve your communication skills. Focus on articulating your thoughts clearly and confidently to leave a strong impression during actual job interviews." },
             { title: "Chloe Griffin", desc: "Research the companies you're interested in. Understand their culture, values, and goals so you can tailor your applications and interviews to show how you'd be a great fit for them." }

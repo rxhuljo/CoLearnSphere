@@ -28,7 +28,7 @@ function Register() {
         if(!phonecheck.test(phone)){
            valid = false; 
         }
-        if(College.trim == "" || Username.trim == "" || password.trim == ""){
+        if(College == "" || Username == "" || password == ""){
             valid = false;
         } 
         if(valid==true){
