@@ -4,15 +4,15 @@ function CardSession(props){
     return(
         <div className="sessioncard">
             <div className="session-header">
-                DataStructures
+                {props.module}
             </div>
             <div className="session-desc">
-                this is a class on datastructures.we will go through the core concepts of datastructures
+                {props.desc}
             </div>
             <div className="session-details">
-                <br />Hosted By : Simon Blue <br />
+                <br />Hosted By : {props.name} <br />
                 Location : Ernakulam <br />
-                Members : 25/30
+                Members : {props.nos}/100
             </div> 
             <div className="joinbtn">
                 {props.btn}

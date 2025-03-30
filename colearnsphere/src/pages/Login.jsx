@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {BrowserRouter , Routes , Route} from 'react-router-dom'
+
 import { useNavigate } from "react-router-dom";
 import "./loginstyle.css" 
 function Login() {
@@ -15,15 +15,18 @@ function Login() {
         e.preventDefault();
         console.log(`Email: ${email}, Password: ${password}`);
         const emailcheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        let valid = false;
-        if(emailcheck.test(email)){
-            valid=true
-            console.log("Email valid");
-        }else{
-            window.alert("Invalid email")
+        let valid = true;
+        if(!emailcheck.test(email)){
+            valid=false;
         }
+        if(password == ""){
+            
+            valid = false;
+        } 
         if(valid==true){
             navigate("/home");
+        }else{
+            document.getElementById("error-text").style.color = "red";
         }
     };
 
@@ -32,9 +35,10 @@ function Login() {
         <div className="login-card">
             <h3>Login</h3>
             <form id={"login"} onSubmit={handleSubmit}>
-                <p className="small-text">
-                    {"Enter email and password to login"}
+                <p className="small-text" id="error-text">
+                    {"Make sure you have entered the correct password,email"}
                 </p>
+                <br />
                 <label className="small-text">Email</label>
                 <br />
                 <input 
