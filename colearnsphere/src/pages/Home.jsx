@@ -2,7 +2,6 @@ import React from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import FeatureBody from "../components/FeatureBody.jsx";
-import Footer from "../components/Footer.jsx";
 function Home(){
     let isLoggedIn = true;
 
@@ -29,7 +28,6 @@ function Home(){
                 <FeatureBody page="home"></FeatureBody>
             </div>
             </div>
-            <Footer></Footer>
         </>
     )
 }
