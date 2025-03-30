@@ -18,7 +18,7 @@ function Header(props){
                     </>
                     : 
                     <>
-                    <Nav name='home' link='/'></Nav>
+                    <Nav name='home' link='/home'></Nav>
                     <Nav name='sessions' link='/sessions/explore' ></Nav>
                     <Nav name='community' link='/community'></Nav>
                     </>
