@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {BrowserRouter , Routes , Route} from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../api";
 import "./loginstyle.css" 
 function Register() {
     const [isLogin, setIsLogin] = useState(true);
@@ -14,8 +15,18 @@ function Register() {
         navigate("/login")
     };
 
+    const handleRegister = async () => {
+        try {
+            const response = await registerUser(Username, password,phone,College,email);
+            alert(response.data.message);
+            navigate("/login");
+        } catch (error) {
+            alert("Error: " + error.response.data.message);
+        }
+    };
+
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         console.log(`Email: ${email}, Password: ${password}`);
         const emailcheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         let valid = true;
@@ -32,7 +43,8 @@ function Register() {
             valid = false;
         } 
         if(valid==true){
-            navigate("/home");
+            handleRegister()
+
         }else{
             document.getElementById("error-text").style.color = "red"
         }

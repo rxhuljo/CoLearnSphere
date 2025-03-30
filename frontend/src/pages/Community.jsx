@@ -1,18 +1,21 @@
-import React,{useState} from "react";
+import React,{useEffect ,useState} from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import PostCard from "../components/PostCard";
+import { getcomm } from "../api";
 function Community(){
     let isLoggedIn = true;
-    let username = "Agmal N";
-    const [posts,setPost] = useState([]);
+    /*const [posts,setPost] = useState([]);*/
     const [newPost,setNewPost] = useState("");
     const addPost = ()=>{
-        setPost([...posts,newPost])
         resetPost();
     }
     const resetPost = () =>{
         setNewPost("")
+    }
+    const [posts,setPost] = useState([]);
+    
+
     }
    
     return(
@@ -24,10 +27,13 @@ function Community(){
                     <button id="newcommpost" onClick={addPost}>New Post</button>
                 </div>
                 <div className="right-column-post">
-                    {   
+                        {/*   
                             posts.toReversed().map((content,index) =>(
                                 <PostCard key={index} content={content} user={username}/>
                             ))
+                        */}
+                        {
+                            
                         }
                     <PostCard content="Build strong projects and gain internship experience for better placement opportunities." user="Emy Sara"/>
                     <PostCard content="Improve communication skills and practice coding regularly to ace technical interviews." user="Sophia Carter"/>

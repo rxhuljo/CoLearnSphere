@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { loginUser } from "../api";
 import { useNavigate } from "react-router-dom";
 import "./loginstyle.css" 
 function Login() {
@@ -11,9 +11,17 @@ function Login() {
         navigate("/register")
     };
 
+    const handleLogin = async () => {
+        try {
+            const response = await loginUser(email, password);
+            alert(response.data.message);
+            navigate('/home');
+        } catch (error) {
+            alert("Error in Lpgin Authentication!");
+        }
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(`Email: ${email}, Password: ${password}`);
         const emailcheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         let valid = true;
         if(!emailcheck.test(email)){
@@ -24,7 +32,8 @@ function Login() {
             valid = false;
         } 
         if(valid==true){
-            navigate("/home");
+            console.log("working")
+            handleLogin();
         }else{
             document.getElementById("error-text").style.color = "red";
         }
