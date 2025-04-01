@@ -1,60 +1,75 @@
-import React,{useEffect ,useState} from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-import { Link } from "react-router-dom";
 import PostCard from "../components/PostCard";
-import { addCommunityPost , getCommunity } from "../api";
-function Community(){
+import { useLocation } from "react-router-dom";
+import { addCommunityPost, getCommunity } from "../api";
+
+function Community() {
     let isLoggedIn = true;
-    const [posts,setPost] = useState();
-    const [newPost,setNewPost] = useState("");
-    const addPost = ()=>{
-        resetPost();
-    }
-    const resetPost = () =>{
-        setNewPost("")
-    }
-    const fetchContent = () => {
-        try{
-           const community = getCommunity(); 
-           setPost(community) 
-           
+    const [posts, setPosts] = useState([]); 
+    const [newPost, setNewPost] = useState("");
+
+    const fetchContent = async () => {
+        try {
+            const response = await getCommunity(); 
+            setPosts(response.data); 
+        } catch (e) {
+            alert("Error fetching posts");
         }
-        catch(e){
-            alert("Error");
-        }
-    }
+    };
+
     useEffect(() => {
-        fetchContent()
-    })
-    return(
+        fetchContent();
+    }, []); 
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const userId = queryParams.get("userid");
+    const addPost = async () => {
+        if (!newPost.trim()) return; 
+
+        try {
+            if (!userId) {
+                alert("User ID is missing!");
+                return;
+            }
+
+            console.log("Adding post:", newPost, "User ID:", userId);
+
+            await addCommunityPost(userId, newPost); 
+            setNewPost("");
+            fetchContent(); 
+        } catch (e) {
+            console.error("Error in addPost:", e);
+            alert("Error adding post");
+        }
+    };
+
+    return (
         <>
-            <Header isLoggedIn={isLoggedIn}></Header>
+            <Header isLoggedIn={isLoggedIn} />
             <div className="gridlayout">
                 <div className="left-column-post">
-                    <textarea placeholder = "Start typing..."name="new-post"  value={newPost} id="new-post" onChange={(e) => setNewPost(e.target.value)}></textarea>
+                    <textarea
+                        placeholder="Start typing..."
+                        name="new-post"
+                        value={newPost}
+                        id="new-post"
+                        onChange={(e) => setNewPost(e.target.value)}
+                    />
                     <button id="newcommpost" onClick={addPost}>New Post</button>
                 </div>
                 <div className="right-column-post">
-                        {/*   
-                            posts.toReversed().map((content,index) =>(
-                                <PostCard key={index} content={content} user={username}/>
-                            ))
-                        */}
-                        {
-                            
-                        }
-                    <PostCard content="Build strong projects and gain internship experience for better placement opportunities." user="Emy Sara"/>
-                    <PostCard content="Improve communication skills and practice coding regularly to ace technical interviews." user="Sophia Carter"/>
-                    <PostCard content="Network with professionals on LinkedIn and attend career fairs for job opportunities." user="Daniel Thompson"/>
-                    <PostCard content="Research companies, tailor resumes, and apply early for better placement chances." user="Olivia Harris"/>
-                    <PostCard content="Develop problem-solving skills and participate in hackathons to stand out in placements." user="James Walker"/>
-                    
-
-
+                    {posts.length > 0 ? (
+                        posts.toReversed().map((content, index) => (
+                            <PostCard key={index} content={content.content} user={content.name} />
+                        ))
+                    ) : (
+                        <p>No posts available</p>
+                    )}
                 </div>
             </div>
         </>
-    )
+    );
 }
 
-export default Community
+export default Community;

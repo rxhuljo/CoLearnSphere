@@ -9,17 +9,19 @@ function Login() {
     const navigate=useNavigate();
     var userid;
     const switchSinLog = () => {
-        navigate(f`/register?username=${userid}`)
+        navigate(`/register`);
     };
 
     const handleLogin = async () => {
         try {
             const response = await loginUser(email, password);
             alert(response.data.message);
-            userid = response.data.userid;
-            navigate(f`/home?userid=${userid}`);
+            
+            const userid = response.data.id; 
+            navigate(`/home?userid=${userid}`);  
         } catch (error) {
-            alert("Error in Lpgin Authentication!");
+            console.error("Login Error:", error.response?.data?.message || error.message);
+            alert(error.response?.data?.message || "Error in Login Authentication!");
         }
     };
     const handleSubmit = (e) => {

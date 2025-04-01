@@ -3,8 +3,13 @@ import Nav from "./Nav.jsx";
 import { Link } from "react-router-dom";
 import profile from "../assets/profileimg.png"
 import logo from "../assets/logo.png"
+import { useLocation } from "react-router-dom";
 function Header(props){
     const isLoggedin = props.isLoggedIn;
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const userId = queryParams.get("userid");
+
     return(
         <nav className = 'header_nav'>
             <div className="left">
@@ -18,9 +23,9 @@ function Header(props){
                     </>
                     : 
                     <>
-                    <Nav name='home' link='/home'></Nav>
-                    <Nav name='sessions' link='/sessions/explore' ></Nav>
-                    <Nav name='community' link='/community'></Nav>
+                    <Nav name="home" link={`/home?userid=${userId}`} />
+                    <Nav name='sessions' link={`/sessions/explore?userid=${userId}`} ></Nav>
+                    <Nav name='community' link={`/community?userid=${userId}`}></Nav>
                     </>
                     }
                 </div>
