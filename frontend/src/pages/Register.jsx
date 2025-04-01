@@ -1,114 +1,87 @@
 import React, { useState } from "react";
-import {BrowserRouter , Routes , Route} from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../api";
-import "./loginstyle.css" 
+import "./loginstyle.css";
+
 function Register() {
-    const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [phone,setPhone] = useState("");
-    const [Username,setUsername] = useState("");
-    const [College,setCollege] = useState("");
-    const navigate=useNavigate();
-    const switchSinLog = () => {
-        navigate("/login")
+    const [phone, setPhone] = useState("");
+    const [username, setUsername] = useState("");
+    const [college, setCollege] = useState("");
+
+    const navigate = useNavigate();
+
+    const switchToLogin = () => {
+        navigate("/login");
     };
 
     const handleRegister = async () => {
         try {
-            const response = await registerUser(Username, password,phone,College,email);
+            const response = await registerUser(username, password, email, college, phone);
             alert(response.data.message);
+            console.log(response.data.id);
             navigate("/login");
+
         } catch (error) {
-            alert("Error: " + error.response.data.message);
+            alert("Error: " + (error.response?.data?.message || "Something went wrong"));
         }
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(`Email: ${email}, Password: ${password}`);
-        const emailcheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        let valid = true;
-        if(emailcheck.test(email)){
-            console.log("Email valid");
-        }else{
-            valid = false;
-        }
-        const phonecheck = /^[0-9]{10}$/;
-        if(!phonecheck.test(phone)){
-           valid = false; 
-        }
-        if(College == "" || Username == "" || password == ""){
-            valid = false;
-        } 
-        if(valid==true){
-            handleRegister()
+        e.preventDefault();
 
-        }else{
-            document.getElementById("error-text").style.color = "red"
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const phoneRegex = /^[0-9]{10}$/;
+
+        let isValid = true;
+
+        if (!emailRegex.test(email)) {
+            isValid = false;
         }
 
+        if (!phoneRegex.test(phone)) {
+            isValid = false;
+        }
+
+        if (!college || !username || !password) {
+            isValid = false;
+        }
+
+        if (isValid) {
+            handleRegister();
+        } else {
+            document.getElementById("error-text").style.color = "red";
+        }
     };
 
     return (
         <div className="login-body">
-        <div className="login-card">
-            <h2>Sign Up</h2>
-            <form id={"login"} onSubmit={handleSubmit}>
-                <p className="small-text" id="error-text">
-                    Make sure you have entered details correctly
-                </p>
-                <label className="small-text">Email</label>
-                <br />
-                <input 
-                    type="text" 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <br />
-                <label className="small-text">Password</label>
-                <br />
-                <input 
-                    type="password" 
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <br />
-                <label className="small-text">Username</label>
-                <br />
-                <input 
-                    type="text" 
-                    value={Username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <br />
-                <label className="small-text">College</label>
+            <div className="login-card">
+                <h2>Sign Up</h2>
+                <form id="login" onSubmit={handleSubmit}>
+                    <p className="small-text" id="error-text">
+                        Make sure you have entered details correctly
+                    </p>
+                    <label className="small-text">Email</label>
+                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    
+                    <label className="small-text">Password</label>
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    
+                    <label className="small-text">Username</label>
+                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    
+                    <label className="small-text">College</label>
+                    <input type="text" value={college} onChange={(e) => setCollege(e.target.value)} />
+                    
+                    <label className="small-text">Phone</label>
+                    <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} />
 
-                <br />
-                <input 
-                    type="text" 
-                    value={College}
-                    onChange={(e) => setCollege(e.target.value)}
-                />
-                <br />
-                <label className="small-text">Phone</label>
-                <br />
-                <input 
-                    type="text" 
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                />
-                <br />
-                <br />
-                <button type="submit">Sign Up</button>
-            </form>
-            <div id="logsin">
-                <button id="log" onClick={switchSinLog}>
-                    Switch to Login
-                </button>
+                    <button type="submit">Sign Up</button>
+                </form>
+                <button id="log" onClick={switchToLogin}>Switch to Login</button>
             </div>
-        </div>
         </div>
     );
 }

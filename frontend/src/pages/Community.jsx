@@ -2,10 +2,10 @@ import React,{useEffect ,useState} from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import PostCard from "../components/PostCard";
-import { getcomm } from "../api";
+import { addCommunityPost , getCommunity } from "../api";
 function Community(){
     let isLoggedIn = true;
-    /*const [posts,setPost] = useState([]);*/
+    const [posts,setPost] = useState();
     const [newPost,setNewPost] = useState("");
     const addPost = ()=>{
         resetPost();
@@ -13,11 +13,19 @@ function Community(){
     const resetPost = () =>{
         setNewPost("")
     }
-    const [posts,setPost] = useState([]);
-    
-
+    const fetchContent = () => {
+        try{
+           const community = getCommunity(); 
+           setPost(community) 
+           
+        }
+        catch(e){
+            alert("Error");
+        }
     }
-   
+    useEffect(() => {
+        fetchContent()
+    })
     return(
         <>
             <Header isLoggedIn={isLoggedIn}></Header>

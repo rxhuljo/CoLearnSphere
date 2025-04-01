@@ -7,15 +7,17 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate=useNavigate();
+    var userid;
     const switchSinLog = () => {
-        navigate("/register")
+        navigate(f`/register?username=${userid}`)
     };
 
     const handleLogin = async () => {
         try {
             const response = await loginUser(email, password);
             alert(response.data.message);
-            navigate('/home');
+            userid = response.data.userid;
+            navigate(f`/home?userid=${userid}`);
         } catch (error) {
             alert("Error in Lpgin Authentication!");
         }
