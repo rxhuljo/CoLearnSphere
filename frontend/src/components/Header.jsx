@@ -32,7 +32,7 @@ function Header(props){
             <div className="right">{
             (isLoggedin) ? 
                 <>
-                    <div ><Link to='/profile'><div className="probg"><img src={profile} alt="" className = 'proimg'/></div></Link></div>
+                    <div ><Link to={`/profile?userid=${userId}`}><div className="probg"><img src={profile} alt="" className = 'proimg'/></div></Link></div>
                 </> :
                 <><Link to='/register' className="signuptext"><div className="signupbtn">Sign Up</div></Link>
                     

@@ -1,35 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import CardSession from "../components/CardSession";
-import { useLocation } from "react-router-dom";
-function Joined(){
-    let isLoggedIn = true;
+import { getJoinedSession } from "../api"; 
+
+function Joined() {
+    const [joinedSessions, setJoinedSessions] = useState([]);
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const userId = queryParams.get("userid");
-    return(
+
+    // Fetch joined sessions
+    useEffect(() => {
+        const fetchJoinedSessions = async () => {
+            try {
+                const response = await getJoinedSession(userId);
+                setJoinedSessions(response.data.modules || []);
+            } catch (error) {
+                console.error("Error fetching joined sessions:", error);
+                setJoinedSessions([]);
+            }
+        };
+        fetchJoinedSessions();
+    }, [userId]);
+
+    return (
         <>
-            <Header isLoggedIn={isLoggedIn}></Header>
+            <Header isLoggedIn={true} />
             <div className="gridlayout">
                 <div className="left-column">
                     <ul>
-                        <Link to={`/sessions/explore?userid=${userId}`} className="hamlinks"><li>explore</li><div class="_line"></div></Link>
-                        <Link to={`/sessions/joined?userid=${userId}`} className="hamlinks"><li>joined</li><div class="_line"></div></Link>
-                        <Link to='/' className="hamlinks"><li>calendar</li><div class="_line"></div></Link>
+                        <Link to={`/sessions/explore?userid=${userId}`} className="hamlinks">
+                            <li>Explore</li>
+                            <div className="_line"></div>
+                        </Link>
+                        <Link to={`/sessions/joined?userid=${userId}`} className="hamlinks">
+                            <li>Joined</li>
+                            <div className="_line"></div>
+                        </Link>
+                        <Link to="/" className="hamlinks">
+                            <li>Calendar</li>
+                            <div className="_line"></div>
+                        </Link>
                     </ul>
                 </div>
-                <div className="right-column">
-                    <CardSession btn="Open" name = "James Peterson" nos={64} module="Networking" desc="Connect and manage computer systems for efficient data communication."></CardSession>
-                    <CardSession btn="Open" name = "Mr. Daniel Foster" nos={34} module="React" desc="A JavaScript library for building fast and interactive user interfaces.k"></CardSession>
-                    <CardSession btn="Open" name = "Sophia Collins" nos={23} module="Django" desc="A high-level Python framework for secure and scalable web applications."></CardSession>
-                    <CardSession btn="Open" name = "Robert Mitchell" nos={87} module="Web Development" desc="Creating websites and applications using HTML, CSS, JavaScript, and frameworks."></CardSession>
-                    <CardSession btn="Open" name = "Dr. Benjamin Clarke" nos={12} module="C Programming" desc="A powerful low-level language for system programming and software development."></CardSession>
 
+                <div className="right-column">
+                    {joinedSessions.length > 0 ? (
+                        joinedSessions.map((session) => (
+                            <CardSession 
+                                key={session.id} 
+                                btn="Open" 
+                                name={session.host_name} 
+                                nos={session.mod_joined} 
+                                module={session.mod_name} 
+                                desc={session.mod_desc} 
+                            />
+                        ))
+                    ) : (
+                        <p>No joined sessions available.</p>
+                    )}
                 </div>
             </div>
         </>
-    )
+    );
 }
 
-export default Joined
+export default Joined;

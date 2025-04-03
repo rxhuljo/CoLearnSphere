@@ -22,6 +22,12 @@ function CardSession(props){
                 alert("Failed to join session.");
             }
         }
+        else if(props.btn === "Joined") {
+            alert("You have already joined this session")
+        } 
+        else if(props.btn === "Open"){
+            alert("Redirecting to module page")
+        }
     };
     return(
         <div className="sessioncard">

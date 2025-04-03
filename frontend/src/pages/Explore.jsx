@@ -3,30 +3,53 @@ import { Link, useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import CardSession from "../components/CardSession";
 import HostSession from "../components/NewModule";
-import { getModules } from "../api"; 
+import { getModules,getJoinedModules } from "../api"; 
 
 function Explore() {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false);
     const [sessions, setSessions] = useState([]);
+    const [Joinedsessions, setJoinedSessions] = useState([]);
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const userId = queryParams.get("userid");
 
-    useEffect(() => {
-        const getSessions = async () => {
-            try {
-                const urlParams = new URLSearchParams(window.location.search);
-                const userId = urlParams.get("userid");
-                const response = await getModules(userId); // Fetch sessions from backend
-                setSessions(response.data.sessions || []);
-            } catch (error) {
-                console.error("Error fetching sessions:", error);
-                setSessions([]);
-            }
-        };
-        getSessions();
-    }, []);
+    const getSessions = async () => {
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get("userid");
+            const response = await getModules(userId); // Fetch sessions from backend
+            setSessions(response.data.sessions || []);
+        } catch (error) {
+            console.error("Error fetching sessions:", error);
+            setSessions([]);
+        }
+    };
+    
 
+    useEffect(() => {
+        getSessions();
+        getJoinedSessions();
+    }, []);
+    const getJoinedSessions = async () => {
+        try{
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get("userid");
+            const response = await getJoinedModules(userId); // Fetch sessions from backend
+            const ar = []
+            setJoinedSessions(response.data.modules);
+        }
+        catch(error){
+            console.error("Error fetching Joined sessions:", error);
+            setJoinedSessions([]);
+        }
+    }
+    const getJoined = (id) => {
+        if (Joinedsessions.includes(id)) {
+            console.log(id);
+            return "Joined";
+        }
+        return "Join";
+    };
     return (
         <>
             <Header isLoggedIn={true} />
@@ -53,7 +76,7 @@ function Explore() {
                         sessions.map((session) => (
                             <CardSession 
                                 key={session.id}
-                                btn="Join"
+                                btn={getJoined(session.id)}
                                 name={session.host_name}
                                 nos={session.mod_joined}
                                 module={session.mod_name}
@@ -71,7 +94,11 @@ function Explore() {
             {isOverlayOpen && (
                 <div className="overlay-container">
                     <div className="overlay-bg" onClick={() => setIsOverlayOpen(false)}></div>
-                    <HostSession onClose={() => setIsOverlayOpen(false)} />
+                    <HostSession onClose={() => {
+                        setSessions()
+                        setIsOverlayOpen(false)
+                        getSessions()
+                        }} />
                 </div>
             )}
         </>

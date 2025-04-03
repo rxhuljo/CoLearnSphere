@@ -35,3 +35,23 @@ export const joinModule = async (userId , modId) => {
         withCredentials: true,
     });
 };
+export const getJoinedModules = async (userId) => {
+    return axios.get(`${API_URL}/joinedmodules`, {
+        params: { userId}, 
+        withCredentials: true,
+    });
+};
+
+export const getJoinedSession = async (userId) => {
+    return axios.get(`${API_URL}/joinedsessions`, {
+        params: { userId}, 
+        withCredentials: true,
+    });
+};
+
+export const getUserDetails = async (userId) => {
+    return axios.get(`${API_URL}/userdetails`,{
+        params:{userId},
+        withCredentials :true
+    })
+}

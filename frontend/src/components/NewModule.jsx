@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../pages/loginstyle.css";
 import { addModule } from "../api";
+
 function HostSession({ onClose }) {
     const [sessionName, setSessionName] = useState("");
     const [location, setLocation] = useState("");
@@ -22,11 +23,13 @@ function HostSession({ onClose }) {
             const response = await addModule(userid, sessionName, location, description);
             const data = await response.data;
             alert(data.message || "New session created!");
+            
             onClose(); // Close the overlay after submitting
         } catch (error) {
             console.error("Error creating session:", error);
             alert("Failed to create session.");
         }
+
     };
 
     return (
