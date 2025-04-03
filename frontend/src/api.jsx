@@ -18,10 +18,20 @@ export const addCommunityPost = async (userId, content) => {
     return axios.post(`${API_URL}/addcom`, { userId, content }, { withCredentials: true });
 };
 
-export const getModules = async () => {
-    return axios.get(`${API_URL}/modules`, { withCredentials: true });
+export const getModules = async (userId) => {
+    return axios.get(`${API_URL}/modules`, {
+        params: { userId }, 
+        withCredentials: true,
+    });
 };
 
-export const addModule = async (modulename, desc) => {
-    return axios.post(`${API_URL}/addmodules`, { modulename, desc }, { withCredentials: true });
+export const addModule = async (userid, sessionName, location, description) => {
+    return axios.post(`${API_URL}/addmodules`, { userid, sessionName, location, description }, { withCredentials: true });
+};
+
+export const joinModule = async (userId , modId) => {
+    return axios.get(`${API_URL}/joinmodules`, {
+        params: { userId , modId}, 
+        withCredentials: true,
+    });
 };

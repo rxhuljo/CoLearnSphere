@@ -16,17 +16,39 @@ def get_community():
     response = supabase.table("community").select("*").execute()
     return jsonify(response.data), 200
 
+@app.route('/joinmodules', methods = ['POST' , "GET"])
+def join_modules():
+    user_id = request.args.get("userId")
+    mod_id = request.args.get("modId")
+    supabase.table("joined_modules").insert({
+        "user_id" : user_id,
+        "module_id" : mod_id
+    }).execute()
+    return jsonify({"message" : "Successfully joined Session"}) , 200
 
-@app.route('/modules', methods=["POST"])
+@app.route('/modules', methods=["POST","GET"])
 def get_modules():
-    response = supabase.table("modules").select("*").execute()
-    return jsonify(response.data), 200
+    user_id = request.args.get("userId")  
+    if not user_id:
+        return jsonify({"error": "Missing userId"}), 400
+
+    response = supabase.table("modules").select("*").neq("id", user_id).execute()
+    for i in response.data:
+        id = i["mod_host"]
+        host = supabase.table("Users").select("username").eq("id",id).execute()
+        i["host_name"] = host.data[0]["username"]
+    return jsonify({"sessions": response.data or []}), 200
 
 @app.route('/addmodules', methods=['POST'])
 def add_modules():
     data = request.get_json()
-    supabase.table('modules').insert({"name": data.get("modulename"), "desc": data.get("desc")}).execute()
-    return jsonify({"message": "Success"}), 200
+    moduleName = data.get("sessionName")
+    userId = data.get("userid")
+    loc = data.get("location")
+    desc = data.get("description") 
+    supabase.table('modules').insert({"mod_name": moduleName, "mod_desc": desc , 
+                                      "mod_host" : userId, 'location' : loc}).execute()
+    return jsonify({"message": "Session created successfully"}), 200
 
 @app.route("/login", methods=['POST'])
 def login():

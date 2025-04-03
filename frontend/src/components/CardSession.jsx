@@ -1,6 +1,28 @@
 import React from "react";
-
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { joinModule } from "../api";
 function CardSession(props){
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const userId = queryParams.get("userid");
+    const handleJoin = async () => {
+        console.log("Attempting to join...");
+
+        if (props.btn === "Join") {
+            try {
+                
+                const modId = props.modid 
+                const response = await joinModule(userId , modId)
+
+                console.log(response.data);
+                alert(response.data.message); 
+            } catch (error) {
+                console.error("Error joining session:", error);
+                alert("Failed to join session.");
+            }
+        }
+    };
     return(
         <div className="sessioncard">
             <div className="session-header">
@@ -11,12 +33,12 @@ function CardSession(props){
             </div>
             <div className="session-details">
                 <br />Hosted By : {props.name} <br />
-                Location : Ernakulam <br />
+                Location : {props.location} <br />
                 Members : {props.nos}/100
             </div> 
-            <div className="joinbtn">
+            <button className="joinbtn" onClick={handleJoin}>
                 {props.btn}
-            </div>
+            </button>
         </div>
     )
 }
