@@ -2,8 +2,10 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { joinModule } from "../api";
+import { useNavigate } from "react-router-dom";
 function CardSession(props){
     const location = useLocation();
+    const navigate = useNavigate();
     const queryParams = new URLSearchParams(location.search);
     const userId = queryParams.get("userid");
     const handleJoin = async () => {
@@ -26,7 +28,7 @@ function CardSession(props){
             alert("You have already joined this session")
         } 
         else if(props.btn === "Open"){
-            alert("Redirecting to module page")
+            navigate(`/module?userid=${userId}&moduleid=${props.modid}`);
         }
     };
     return(

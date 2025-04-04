@@ -1,57 +1,76 @@
 import axios from "axios";
 
-const API_URL = "http://127.0.0.1:5000";
+const API_URL = "http://127.0.0.1:5000"; // Ensure this matches your Flask backend
 
-export const registerUser = async (username, password, email, college, phone) => {
-    return axios.post(`${API_URL}/register`, { username, password, email, college, phone }, { withCredentials: true });
+const api = axios.create({
+    baseURL: API_URL,
+    headers: { "Content-Type": "application/json" },
+    withCredentials: true,
+});
+
+// User Authentication
+export const registerUser = (username, password, email, college, phone) => 
+    api.post("/register", { username, password, email, college, phone });
+
+export const loginUser = (email, password) => 
+    api.post("/login", { email, password });
+
+// Community APIs
+export const getCommunity = () => 
+    api.get("/community");
+
+export const addCommunityPost = (userId, content) => 
+    api.post("/addcom", { userId, content });
+
+// Modules (Sessions)
+export const getModules = (userId) => 
+    api.get("/modules", { params: { userId } });
+
+export const addModule = (userId, sessionName, location, description) => 
+    api.post("/addmodules", { userId, sessionName, location, description });
+
+export const joinModule = (userId, modId) => 
+    api.get("/joinmodules", { params: { userId, modId } });
+
+export const getJoinedModules = (userId) => 
+    api.get("/joinedmodules", { params: { userId } });
+
+export const getJoinedSession = (userId) => 
+    api.get("/joinedsessions", { params: { userId } });
+
+// User Details
+export const getUserDetails = (userId) => 
+    api.get("/userdetails", { params: { userId } });
+
+// Semester Data
+export const getSemesterData = async (userId) => {
+    try {
+        const response = await api.get(`/get-semester-data/${userId}`);
+        return response.data;
+    } catch (error) {
+        throw new Error("Failed to fetch semester data");
+    }
 };
 
-export const loginUser = async (email, password) => {
-    return axios.post(`${API_URL}/login`, { email, password }, { withCredentials: true });
+export const saveSemesterData = async (userId, data) => {
+    try {
+        const response = await api.post(`/save-semester-data/${userId}`, data);
+        return response.data;
+    } catch (error) {
+        throw new Error("Failed to save semester data");
+    }
 };
 
-export const getCommunity = async () => {
-    return axios.get(`${API_URL}/community`, { withCredentials: true });  // Fixed: Use GET
-};
+// Chat APIs
+export const getMessages = (moduleId) => 
+    api.get(`/messages/${moduleId}`);
 
-export const addCommunityPost = async (userId, content) => {
-    return axios.post(`${API_URL}/addcom`, { userId, content }, { withCredentials: true });
-};
+export const sendMessage = (messageData) => 
+    api.post("/messages", messageData);
 
-export const getModules = async (userId) => {
-    return axios.get(`${API_URL}/modules`, {
-        params: { userId }, 
-        withCredentials: true,
-    });
-};
+// Resources APIs
+export const getResources = (moduleId) => 
+    api.get(`/resources/${moduleId}`);
 
-export const addModule = async (userid, sessionName, location, description) => {
-    return axios.post(`${API_URL}/addmodules`, { userid, sessionName, location, description }, { withCredentials: true });
-};
-
-export const joinModule = async (userId , modId) => {
-    return axios.get(`${API_URL}/joinmodules`, {
-        params: { userId , modId}, 
-        withCredentials: true,
-    });
-};
-export const getJoinedModules = async (userId) => {
-    return axios.get(`${API_URL}/joinedmodules`, {
-        params: { userId}, 
-        withCredentials: true,
-    });
-};
-
-export const getJoinedSession = async (userId) => {
-    return axios.get(`${API_URL}/joinedsessions`, {
-        params: { userId}, 
-        withCredentials: true,
-    });
-};
-
-export const getUserDetails = async (userId) => {
-    return axios.get(`${API_URL}/userdetails`,{
-        params:{userId},
-        withCredentials :true
-    })
-}
+export const addResource = (resourceData) => 
+    api.post("/resources", resourceData);

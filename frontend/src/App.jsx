@@ -10,6 +10,7 @@ import Community from './pages/Community'
 import Profile from './pages/Profile'
 import Joined from './pages/Joined'
 import Landing from './pages/Landing'
+import Modules from './pages/Modules'
 function App() {
   
 
@@ -26,6 +27,7 @@ function App() {
             <Route path='/community' element={<Community></Community>}></Route>
             <Route path='/profile' element={<Profile></Profile>}></Route>
             <Route path='/sessions/joined' element={<Joined></Joined>}></Route>
+            <Route path='/module' element={<Modules></Modules>}></Route>
           </Routes>
         </BrowserRouter>
       </div>

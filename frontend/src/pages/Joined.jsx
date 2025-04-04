@@ -16,6 +16,7 @@ function Joined() {
             try {
                 const response = await getJoinedSession(userId);
                 setJoinedSessions(response.data.modules || []);
+                
             } catch (error) {
                 console.error("Error fetching joined sessions:", error);
                 setJoinedSessions([]);
@@ -31,15 +32,11 @@ function Joined() {
                 <div className="left-column">
                     <ul>
                         <Link to={`/sessions/explore?userid=${userId}`} className="hamlinks">
-                            <li>Explore</li>
+                            <li>explore</li>
                             <div className="_line"></div>
                         </Link>
                         <Link to={`/sessions/joined?userid=${userId}`} className="hamlinks">
-                            <li>Joined</li>
-                            <div className="_line"></div>
-                        </Link>
-                        <Link to="/" className="hamlinks">
-                            <li>Calendar</li>
+                            <li>joined</li>
                             <div className="_line"></div>
                         </Link>
                     </ul>
@@ -55,6 +52,7 @@ function Joined() {
                                 nos={session.mod_joined} 
                                 module={session.mod_name} 
                                 desc={session.mod_desc} 
+                                modid={session.id}
                             />
                         ))
                     ) : (

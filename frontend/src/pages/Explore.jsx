@@ -57,13 +57,10 @@ function Explore() {
                 <div className="left-column">
                     <ul>
                         <Link to={`/sessions/explore?userid=${userId}`} className="hamlinks">
-                            <li>Explore</li><div className="_line"></div>
+                            <li>explore</li><div className="_line"></div>
                         </Link>
                         <Link to={`/sessions/joined?userid=${userId}`} className="hamlinks">
-                            <li>Joined</li><div className="_line"></div>
-                        </Link>
-                        <Link to='/' className="hamlinks">
-                            <li>Calendar</li><div className="_line"></div>
+                            <li>joined</li><div className="_line"></div>
                         </Link>
                     </ul>
                     <button className="create-session-btn" onClick={() => setIsOverlayOpen(true)}>
