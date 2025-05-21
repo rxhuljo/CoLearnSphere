@@ -6,11 +6,11 @@ from machinelearning.predv1 import predict_sgpa
 import os
 import pandas as pd
 
-base_dir = os.path.dirname(os.path.abspath(__file__))
-csv_path = os.path.join(base_dir, "machinelearning", "Data-Copy1.csv")
+#base_dir = os.path.dirname(os.path.abspath(__file__))
+#csv_path = os.path.join(base_dir, "machinelearning", "D:\Code\GitHub\CoLearnSphere\backend\machinelearning\Data-Copy1.csv")
 
 
-data = pd.read_csv(csv_path)
+data = pd.read_csv("D:/Code/GitHub/CoLearnSphere/backend/machinelearning/Data-Copy1.csv")
 
 SUPABASE_URL = "https://jitbfugbhgkphobivjho.supabase.co"
 SUPABASE_SECRET_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImppdGJmdWdiaGdrcGhvYml2amhvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MzMxNTQwOSwiZXhwIjoyMDU4ODkxNDA5fQ.9dlxkY2p2j6lBvpHyVr44EK2JBYwzCVcPw12OM3dHFU"
@@ -169,6 +169,10 @@ def register():
     }).execute()
 
     user_id = supabase.table("Users").select("id").eq("email", email).execute().data[0]["id"]
+    supabase.table("score_predictor").insert({
+        "user_id": user_id, 
+        "current_sem": 0, 
+    }).execute()
     return jsonify({"message": "User registered successfully", "id": user_id}), 200
 
 @app.route("/joinedmodules", methods=["POST", "GET"])

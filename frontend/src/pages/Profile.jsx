@@ -134,6 +134,7 @@ function Profile() {
                 {semNumber === semesterData.current_sem
                     ? `Predicted SGPA Semester ${semNumber} : ${sgpa || "N/A"}`
                     : `Semester ${semNumber} SGPA : ${sgpa || "N/A"}`}
+                    <br />
             </div>
         );
     })}
@@ -147,11 +148,14 @@ function Profile() {
                         <form onSubmit={handleSubmit}>
                             <label>Current Semester:
                                 <input type="number" name="current_sem" value={formData.current_sem} onChange={handleInputChange} required />
+                                <br />
                             </label>
                             {[...Array(8)].map((_, i) => (
                                 <label key={i}>Sem {i + 1}:
                                     <input type="number" name={`sem${i + 1}`} value={formData[`sem${i + 1}`]} onChange={handleInputChange} step="0.1" />
+                                    <br />
                                 </label>
+                                
                             ))}
                             <button type="submit">Save</button>
                         </form>

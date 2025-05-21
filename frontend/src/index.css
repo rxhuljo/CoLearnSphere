@@ -420,6 +420,7 @@ mark{
 }
 /*Profile Page*/
 .profileframe{
+  margin-top: 170px;
   height: 120vh;
   display: flex;
   flex-direction: column;
