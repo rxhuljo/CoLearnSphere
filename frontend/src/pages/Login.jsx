@@ -1,40 +1,57 @@
 import React, { useState } from "react";
-import {BrowserRouter , Routes , Route} from 'react-router-dom'
+import { loginUser } from "../api";
 import { useNavigate } from "react-router-dom";
 import "./loginstyle.css" 
-function Register() {
+function Login() {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate=useNavigate();
+    var userid;
     const switchSinLog = () => {
-        navigate("/login")
+        navigate(`/register`);
     };
 
+    const handleLogin = async () => {
+        try {
+            const response = await loginUser(email, password);
+            alert(response.data.message);
+            
+            const userid = response.data.id; 
+            navigate(`/home?userid=${userid}`);  
+        } catch (error) {
+            console.error("Login Error:", error.response?.data?.message || error.message);
+            alert(error.response?.data?.message || "Error in Login Authentication!");
+        }
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(`Email: ${email}, Password: ${password}`);
         const emailcheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        let valid = false;
-        if(emailcheck.test(email)){
-            valid=true
-            console.log("Email valid");
-        }else{
-            window.alert("Invalid email")
+        let valid = true;
+        if(!emailcheck.test(email)){
+            valid=false;
         }
+        if(password == ""){
+            
+            valid = false;
+        } 
         if(valid==true){
-            navigate("/home");
+            console.log("working")
+            handleLogin();
+        }else{
+            document.getElementById("error-text").style.color = "red";
         }
     };
 
     return (
         <div className="login-body">
         <div className="login-card">
-            <h3>Sign Up</h3>
+            <h3>Login</h3>
             <form id={"login"} onSubmit={handleSubmit}>
-                <p className="small-text">
-                    {"Enter email and password to create account"}
+                <p className="small-text" id="error-text">
+                    {"Make sure you have entered the correct password,email"}
                 </p>
+                <br />
                 <label className="small-text">Email</label>
                 <br />
                 <input 
@@ -51,12 +68,17 @@ function Register() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <br />
+                {isLogin && (
+                    <a href="google.com">
+                        <div className="forgotpass small-text">Did you forget your password?</div>
+                    </a>
+                )}
                 <br />
-                <button type="submit">Sign Up</button>
+                <button type="submit">{isLogin ? "Login" : "Sign Up"}</button>
             </form>
             <div id="logsin">
                 <button id="log" onClick={switchSinLog}>
-                    Switch to Login
+                    Switch to Sign Up
                 </button>
             </div>
         </div>
@@ -64,4 +86,4 @@ function Register() {
     );
 }
 
-export default Register;
+export default Login;
