@@ -6,7 +6,7 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 # Load data
-data = pd.read_csv('D:/Code/GitHub/CoLearnSphere/backend/machinelearning/Data-Copy1.csv')
+data = pd.read_csv('./machinelearning/Data-Copy1.csv')
 
 if "Unnamed: 0" in data.columns:
     data.drop(columns=["Unnamed: 0"], inplace=True)

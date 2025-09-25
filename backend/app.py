@@ -10,10 +10,12 @@ import pandas as pd
 #csv_path = os.path.join(base_dir, "machinelearning", "D:\Code\GitHub\CoLearnSphere\backend\machinelearning\Data-Copy1.csv")
 
 
-data = pd.read_csv("D:/Code/GitHub/CoLearnSphere/backend/machinelearning/Data-Copy1.csv")
+data = pd.read_csv("./machinelearning/Data-Copy1.csv")
 
-SUPABASE_URL = "https://jitbfugbhgkphobivjho.supabase.co"
-SUPABASE_SECRET_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImppdGJmdWdiaGdrcGhvYml2amhvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MzMxNTQwOSwiZXhwIjoyMDU4ODkxNDA5fQ.9dlxkY2p2j6lBvpHyVr44EK2JBYwzCVcPw12OM3dHFU"
+
+SUPABASE_URL = "https://yldlnpvrlhlwgvscllme.supabase.co"
+
+SUPABASE_SECRET_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsZGxucHZybGhsd2d2c2NsbG1lIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTQ5Mzk5OCwiZXhwIjoyMDY3MDY5OTk4fQ.IzBbmIiDjWIhoRX8OFdzB2ZQbiYBws5osE1sXxUNTbc"
 
 supabase = create_client(SUPABASE_URL, SUPABASE_SECRET_KEY)
 
